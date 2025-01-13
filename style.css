@@ -1,0 +1,62 @@
+.game-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 500px;
+    margin-bottom: 20px;
+}
+
+#gameBoard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 500px;    /* Adjust this value to change overall game size */
+    gap: 10px;
+}
+
+.tile {
+    aspect-ratio: 1;
+    background-color: #ddd;
+    border: 2px solid #999;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.tile:hover {
+    transform: scale(1.05);
+}
+
+.tile.revealed {
+    background-color: white;
+}
+
+.tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.tile.revealed img {
+    display: block;
+}
+
+#newGame {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#newGame:hover {
+    background-color: #45a049;
+}
