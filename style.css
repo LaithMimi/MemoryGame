@@ -15,7 +15,7 @@
 #gameBoard {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    max-width: 500px;    /* Adjust this value to change overall game size */
+    max-width: 500px;    
     gap: 10px;
 }
 

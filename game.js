@@ -6,18 +6,18 @@ class MemoryGame {
         this.pairsMatched = 0;
         this.firstTile = null;
         this.secondTile = null;
-        this.canFlip = true;
+        this.canFlip = true; // to prevent flipping more cards while checking matches
         
-        // Get DOM elements
+        //get DOM elements
         this.gameBoard = document.getElementById('gameBoard');
         this.turnCounter = document.getElementById('turnCounter');
         this.pairsCounter = document.getElementById('pairsMatched');
         this.newGameButton = document.getElementById('newGame');
         
-        // Bind event listeners
+        //bind event listeners
         this.newGameButton.addEventListener('click', () => this.initGame());
 
-         // Map of image formats based on my actual files
+         //map of image formats based on the actual files
          this.imageFormats = {
             1: 'png',
             2: 'jpg',
@@ -26,8 +26,7 @@ class MemoryGame {
             5: 'jpg',
             6: 'png',
             7: 'png',
-            8: 'png',
-            
+            8: 'png', 
         }
     }
 
@@ -48,25 +47,37 @@ class MemoryGame {
 
     createTilePairs() {
         const totalPairs=(this.ROWS*this.COLS)/2;
-        const tiles = [];
+        const pairs = [];
         
         for (let i = 1; i <= totalPairs; i++) {
-            tiles.push(i, i); //add each number twice for pairs
+            pairs.push(i, i); //add each number twice for pairs
         }
         
-        return tiles;
+        return pairs;
     }
 
-    shuffleTiles(tiles) {
-        for (let i = tiles.length-1; i>0; i--) {
+    shuffleTiles(pairs) {
+        for (let i = pairs.length-1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i+1));
-            [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+            [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
         }
-        return tiles;
+        return pairs;
     }
-
-    renderBoard(tiles) {
-        tiles.forEach((value, index) => {
+    /*should make this :
+    <div id="gameBoard">
+        <div class="tile" data-value="1">
+        <img src="images/default/img-1.png">
+    </div>
+    <div class="tile" data-value="2">
+        <img src="images/default/img-2.jpg">
+    </div>   
+    <!-- More tiles... -->
+    </div>
+    */
+    renderBoard(pairs) {
+        pairs.forEach((value, index) => {
+            // "value" is the card number (1-8)
+            // "index" is the position (0-15)
             const tile = document.createElement('div');
             tile.className = 'tile';
             tile.dataset.value = value;
@@ -77,22 +88,22 @@ class MemoryGame {
 
             tile.appendChild(img);
             
-            tile.addEventListener('click', () => this.handleTileClick(tile));
+            tile.addEventListener('click', ()=> this.handleTileClick(tile));
             this.gameBoard.appendChild(tile);
         });
     }
-
+  
     handleTileClick(tile) {
         if (!this.canFlip || tile.classList.contains('revealed')) {
             return;
         }
 
         if (!this.firstTile) {
-            // First tile of the pair
+            //first tile of the pair
             this.firstTile = tile;
             this.revealTile(tile);
         } else if (!this.secondTile && tile !== this.firstTile) {
-            // Second tile of the pair
+            //second tile of the pair
             this.secondTile = tile;
             this.revealTile(tile);
             this.turns++;
