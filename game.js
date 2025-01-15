@@ -1,20 +1,23 @@
 class MemoryGame {
     constructor() {
-        this.ROWS = 4;
-        this.COLS = 4;
+        //set number of rows and columns for game board
+        this.ROWS = 6;
+        this.COLS = 5;
+
+
         this.turns = 0;
         this.pairsMatched = 0;
         this.firstTile = null;
         this.secondTile = null;
-        this.canFlip = true; // to prevent flipping more cards while checking matches
+        this.canFlip = true; //to prevent flipping more cards while checking matches
         
-        //get DOM elements
+        //get parts of webpage
         this.gameBoard = document.getElementById('gameBoard');
         this.turnCounter = document.getElementById('turnCounter');
         this.pairsCounter = document.getElementById('pairsMatched');
         this.newGameButton = document.getElementById('newGame');
         
-        //bind event listeners
+        //make a new game button work
         this.newGameButton.addEventListener('click', () => this.initGame());
 
          //map of image formats based on the actual files
@@ -27,21 +30,28 @@ class MemoryGame {
             6: 'png',
             7: 'png',
             8: 'png', 
+            9: 'jpg',
+            10:'png',
+            11:'png',
+            12:'png',
+            13:'png',
+            14:'png',
+            15:'png',
         }
     }
 
     initGame() {
-        //reset game state
+        //reset game 
         this.turns = 0;
         this.pairsMatched = 0;
         this.updateCounters();
         this.gameBoard.innerHTML = '';
         
-        //create and shuffle tiles
+        //create and mix tiles
         const tiles = this.createTilePairs();
         const shuffledTiles = this.shuffleTiles(tiles);
         
-        //render game board
+        //show game board
         this.renderBoard(shuffledTiles);
     }
 
@@ -92,14 +102,19 @@ class MemoryGame {
             this.gameBoard.appendChild(tile);
         });
     }
-  
+    /*
+    Handle Tile Clicks:
+        Checks if the tile can be flipped.
+        If it's the first tile of the pair, reveals it. 
+        If it's the second tile of the pair, reveals it and checks for a match.
+    */
     handleTileClick(tile) {
         if (!this.canFlip || tile.classList.contains('revealed')) {
             return;
         }
 
         if (!this.firstTile) {
-            //first tile of the pair
+            //first tile of the pair IS NOT NULL 
             this.firstTile = tile;
             this.revealTile(tile);
         } else if (!this.secondTile && tile !== this.firstTile) {
@@ -114,6 +129,8 @@ class MemoryGame {
 
     revealTile(tile) {
         tile.classList.add('revealed');
+        //Adding the revealed class will apply the CSS styles defined for this class,
+        //typically making the tile's image visible.
     }
 
     hideTile(tile) {

@@ -1,31 +1,38 @@
 .game-container {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 0 auto; /* Center the container horizontally */
     padding: 20px;
+    background-color: #f9f9f9; /*adding a light background for better contrast */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    border-radius:30px; /* Slightly rounded corners*/
 }
-
 .game-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end; /* Aligns items to the right */
     align-items: center;
-    max-width: 500px;
+    max-width: 500px; /* Keeps the header visually aligned with the game board */
     margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
 }
 
 #gameBoard {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    max-width: 500px;    
-    gap: 10px;
+    grid-template-columns: repeat(5, 1fr); /*grid layout */
+    max-width: 600px; /*board width for tile's size*/
+    gap: 10px; /*spacing between the tiles */
+    margin: 0 auto; /*centering the grid */
+    border-radius: 8px; /* Rounded edges for modern design */
 }
 
 .tile {
-    aspect-ratio: 1;
+    aspect-ratio: 1; /*squared tiles*/
     background-color: #ddd;
-    border: 2px solid #999;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
+    border: 2px solid #999; /*add border*/
+    border-radius: 8px; /*rounded corners*/
+    cursor: pointer; /*interactive tiles*/
+    transition: transform 0.3s ease,box-shadow 0.3s ease;/*hover effect*/
+    width: 100%;
 }
 
 .tile:hover {
@@ -37,8 +44,8 @@
 }
 
 .tile img {
-    width: 100%;
-    height: 100%;
+    width: 100%; /*the img fills the tile*/
+    height: 100%;/*the img fills the tile*/
     object-fit: cover;
     display: none;
 }
@@ -49,6 +56,7 @@
 
 #newGame {
     padding: 10px 20px;
+    margin: 0 auto; /*to Center the container horizontally */
     font-size: 16px;
     background-color: #4CAF50;
     color: rgb(0, 0, 0);
