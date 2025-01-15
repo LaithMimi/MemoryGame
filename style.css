@@ -8,9 +8,9 @@
 }
 .game-header {
     display: flex;
-    justify-content: flex-end; /* Aligns items to the right */
+    justify-content: flex-end; 
     align-items: center;
-    max-width: 500px; /* Keeps the header visually aligned with the game board */
+    max-width: 500px; /*to keep the header visually aligned with the game board */
     margin-bottom: 20px;
     font-family: Arial, sans-serif;
     color: #333;
@@ -20,14 +20,14 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr); /*grid layout */
     max-width: 600px; /*board width for tile's size*/
-    gap: 10px; /*spacing between the tiles */
+    gap: 5px; /*spacing between the tiles */
     margin: 0 auto; /*centering the grid */
-    border-radius: 8px; /* Rounded edges for modern design */
+    border-radius: 5px; /* Rounded edges for modern design */
 }
 
 .tile {
     aspect-ratio: 1; /*squared tiles*/
-    background-color: #ddd;
+    background-color: #0a2284;
     border: 2px solid #999; /*add border*/
     border-radius: 8px; /*rounded corners*/
     cursor: pointer; /*interactive tiles*/
