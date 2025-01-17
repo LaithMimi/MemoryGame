@@ -20,24 +20,6 @@ class MemoryGame {
         //make a new game button work
         this.newGameButton.addEventListener('click', () => this.initGame());
 
-         //map of image formats based on the actual files
-         this.imageFormats = {
-            1: 'png',
-            2: 'jpg',
-            3: 'jpg',
-            4: 'png',
-            5: 'jpg',
-            6: 'png',
-            7: 'png',
-            8: 'png', 
-            9: 'jpg',
-            10:'png',
-            11:'png',
-            12:'png',
-            13:'png',
-            14:'png',
-            15:'png',
-        }
     }
 
     initGame() {
@@ -93,7 +75,7 @@ class MemoryGame {
             tile.dataset.value = value;
             
             const img = document.createElement('img');
-            const format = this.imageFormats[value];
+            //const format = this.imageFormats[value];
             img.src = `images/default/img-${value}.png`;
 
             tile.appendChild(img);

@@ -62,7 +62,7 @@
     padding: 10px 20px;
     margin: 0 auto; /* Center the container horizontally */
     font-size: 16px;
-    background-color: #007BFF; /* Bright blue for the button */
+    background-color: #000000; /* Bright blue for the button */
     color: #ffffff; /* White text */
     border: none;
     border-radius: 5px;
@@ -72,6 +72,6 @@
 }
 
 #newGame:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #7c0505; /* Darker blue on hover */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
 }
