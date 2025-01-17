@@ -94,7 +94,7 @@ class MemoryGame {
             
             const img = document.createElement('img');
             const format = this.imageFormats[value];
-            img.src = `images/default/img-${value}.${format}`;
+            img.src = `images/default/img-${value}.png`;
 
             tile.appendChild(img);
             

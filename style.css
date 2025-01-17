@@ -21,7 +21,7 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* Grid layout */
     max-width: 600px; /* Board width for tile's size */
-    gap: 5px; /* Spacing between the tiles */
+    gap: 2px; /* Spacing between the tiles */
     margin: 0 auto; /* Centering the grid */
     border-radius: 5px; /* Rounded edges for modern design */
 }
@@ -32,7 +32,6 @@
     background-image: url("images/card_background.png"); /* Original background image retained */
     background-size: cover;
     background-position: center;
-    border: 2px solid #cc8400; /* Orange border to match the theme */
     border-radius: 8px; /* Rounded corners */
     cursor: pointer; /* Interactive tiles */
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover effect */
@@ -44,7 +43,7 @@
 }
 
 .tile.revealed {
-    background-color: #ffffff; /* White for revealed tiles */
+    background-image: none; /* Remove background image */
     border: 2px solid #999; /* Neutral border */
 }
 
