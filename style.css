@@ -2,50 +2,55 @@
     max-width: 800px;
     margin: 0 auto; /* Center the container horizontally */
     padding: 20px;
-    background-color: #f9f9f9; /*adding a light background for better contrast */
+    background-color: #f4eda8; /* Light teal for contrast */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
-    border-radius:30px; /* Slightly rounded corners*/
+    border-radius: 30px; /* Slightly rounded corners */
 }
+
 .game-header {
     display: flex;
     justify-content: flex-end; 
     align-items: center;
-    max-width: 500px; /*to keep the header visually aligned with the game board */
+    max-width: 500px; /* To keep the header visually aligned with the game board */
     margin-bottom: 20px;
     font-family: Arial, sans-serif;
-    color: #333;
+    color: #0d4d4d; /* Dark teal for text */
 }
 
 #gameBoard {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /*grid layout */
-    max-width: 600px; /*board width for tile's size*/
-    gap: 5px; /*spacing between the tiles */
-    margin: 0 auto; /*centering the grid */
+    grid-template-columns: repeat(5, 1fr); /* Grid layout */
+    max-width: 600px; /* Board width for tile's size */
+    gap: 5px; /* Spacing between the tiles */
+    margin: 0 auto; /* Centering the grid */
     border-radius: 5px; /* Rounded edges for modern design */
 }
 
 .tile {
-    aspect-ratio: 1; /*squared tiles*/
-    background-color: #0a2284;
-    border: 2px solid #999; /*add border*/
-    border-radius: 8px; /*rounded corners*/
-    cursor: pointer; /*interactive tiles*/
-    transition: transform 0.3s ease,box-shadow 0.3s ease;/*hover effect*/
-    width: 100%;
+    aspect-ratio: 1; /* Square tiles */
+    width: 100px; /* Ensure the tile has a defined size */
+    background-image: url("images/card_background.png"); /* Original background image retained */
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #cc8400; /* Orange border to match the theme */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Interactive tiles */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover effect */
 }
 
 .tile:hover {
     transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Highlight hover */
 }
 
 .tile.revealed {
-    background-color: white;
+    background-color: #ffffff; /* White for revealed tiles */
+    border: 2px solid #999; /* Neutral border */
 }
 
 .tile img {
-    width: 100%; /*the img fills the tile*/
-    height: 100%;/*the img fills the tile*/
+    width: 100%; /* The img fills the tile */
+    height: 100%; /* The img fills the tile */
     object-fit: cover;
     display: none;
 }
@@ -56,15 +61,18 @@
 
 #newGame {
     padding: 10px 20px;
-    margin: 0 auto; /*to Center the container horizontally */
+    margin: 0 auto; /* Center the container horizontally */
     font-size: 16px;
-    background-color: #4CAF50;
-    color: rgb(0, 0, 0);
+    background-color: #007BFF; /* Bright blue for the button */
+    color: #ffffff; /* White text */
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Button shadow */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
 }
 
 #newGame:hover {
-    background-color: #45a049;
+    background-color: #0056b3; /* Darker blue on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
 }
