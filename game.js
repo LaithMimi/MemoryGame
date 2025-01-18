@@ -75,7 +75,6 @@ class MemoryGame {
             tile.dataset.value = value;
             
             const img = document.createElement('img');
-            //const format = this.imageFormats[value];
             img.src = `images/default/img-${value}.png`;
 
             tile.appendChild(img);
@@ -96,16 +95,24 @@ class MemoryGame {
         }
 
         if (!this.firstTile) {
-            //first tile of the pair IS NOT NULL 
+            // First tile of the pair
             this.firstTile = tile;
             this.revealTile(tile);
         } else if (!this.secondTile && tile !== this.firstTile) {
-            //second tile of the pair
+            // Second tile of the pair
             this.secondTile = tile;
             this.revealTile(tile);
             this.turns++;
             this.updateCounters();
             this.checkMatch();
+        } else if (this.firstTile && this.secondTile) {
+            // Third tile clicked, hide the first two tiles if they don't match
+            if (this.firstTile.dataset.value !== this.secondTile.dataset.value) {
+                this.hideTile(this.firstTile);
+                this.hideTile(this.secondTile);
+            }
+            this.resetTiles();
+            this.handleTileClick(tile); // Recursively handle the third tile click
         }
     }
 
@@ -134,13 +141,13 @@ class MemoryGame {
             }
         } else {
             // No match
-            this.canFlip = false;
-            setTimeout(() => {
-                this.hideTile(this.firstTile);
-                this.hideTile(this.secondTile);
-                this.resetTiles();
-                this.canFlip = true;
-            }, 1000);
+            // this.canFlip = false;
+            // setTimeout(() => {
+            //     this.hideTile(this.firstTile);
+            //     this.hideTile(this.secondTile);
+            //     this.resetTiles();
+            //     this.canFlip = true;
+            // }, 1000);
         }
     }
 

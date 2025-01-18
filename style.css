@@ -44,7 +44,7 @@
 
 .tile.revealed {
     background-image: none; /* Remove background image */
-    border: 2px solid #999; /* Neutral border */
+    border: 2px solid #999; 
 }
 
 .tile img {
@@ -72,6 +72,6 @@
 }
 
 #newGame:hover {
-    background-color: #7c0505; /* Darker blue on hover */
+    background-color: #7c0505; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
 }
