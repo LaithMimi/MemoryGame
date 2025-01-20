@@ -1,18 +1,39 @@
-.game-container {
-    max-width: 800px;
-    margin: 0 auto; /* Center the container horizontally */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #ecf0f1;
+    --accent-color: #e74c3c;
+    --success-color: #2ecc71;
+    --text-color: #2c3e50;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --card-size: min(calc(100vw / 6 - 20px), 100px);
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body {
+    background: linear-gradient(135deg, #ffffff 0%, #dcedc1 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
+}
+
+.game-container {
+    max-width: min(95vw, 800px);
+    width: 100%;
+    margin: 0 auto; /* Center the container horizontally */
+    padding: clamp(15px, 3vw, 30px);
     background-color: #f4eda8; /* Light teal for contrast */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    box-shadow: var(--shadow);
     border-radius: 30px; /* Slightly rounded corners */
     animation: fadeIn 0.8s ease-in;
 }
 
-/* Add fade-in animation for game start */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+
 
 .game-header {
     display: flex;
@@ -22,24 +43,38 @@
     margin-bottom: 20px;
     font-family: Arial, sans-serif;
     color: #0d4d4d; /* Dark teal for text */
+    
 }
-
+.game-stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: clamp(14px, 2vw, 16px);
+}
+.game-stats p {
+    background-color: var(--secondary-color);
+    padding: 8px 15px;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+}
 #gameBoard {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(var(--card-size), 1fr));
     max-width: 600px; /* Board width for tile's size */
-    gap: 2px; /* Spacing between the tiles */
+    gap: clamp(5px, 1vw, 10px); /* Spacing between the tiles */
     margin: 0 auto; /* Centering the grid */
     border-radius: 5px; /* Rounded edges for modern design */
+    justify-content: center;
+
 }
 
 .tile {
     aspect-ratio: 1; /* Square tiles */
-    width: 100px; /* Ensure the tile has a defined size */
+    width: var(--card-size);/* Ensure the tile has a defined size */
     background-image: url("images/card_background.png"); /* Original background image retained */
     background-size: cover;
     background-position: center;
-    border-radius: 8px; /* Rounded corners */
+    border-radius: 10px; /* Rounded corners */
     cursor: pointer; /* Interactive tiles */
     transform-style: preserve-3d;
     transition: transform 0.6s ease;
@@ -62,20 +97,16 @@
     display: none;
     position: absolute;
     backface-visibility: hidden;
-    transform: rotateY(180deg);
+    transform: rotateY(180deg); /*flip the images*/
 }
 
 .tile.revealed img {
     display: block;
 }
 
-
-@keyframes matchedPair {
-    0% { transform: scale(1); box-shadow: 0 0 0 rgba(76, 175, 80, 0); }
-    50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(76, 175, 80, 0.5); }
-    100% { transform: scale(1); box-shadow: 0 0 0 rgba(76, 175, 80, 0); }
-}
 .tile.matched {
+    border-color: var(--success-color);
+    box-shadow: 0 0 15px var(--success-color);
     animation: matchedPair 0.6s ease forwards;
 }
 
@@ -117,4 +148,14 @@
 
 .sound-toggle:active {
     transform: scale(0.95);
+}
+/* Add fade-in animation for game start */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes matchedPair {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(76, 175, 80, 0); }
+    50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(76, 175, 80, 0.5); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(76, 175, 80, 0); }
 }
