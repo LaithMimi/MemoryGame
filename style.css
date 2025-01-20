@@ -128,26 +128,6 @@ button:hover {
 button:active {
     transform: translateY(0);
 }
-/* Add these to your existing CSS */
-.sound-toggle {
-    padding: 8px 12px;
-    margin-left: 15px;
-    font-size: 20px;
-    background-color: #ffffff;
-    border: 2px solid #000000;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.sound-toggle:hover {
-    background-color: #f0f0f0;
-    transform: scale(1.1);
-}
-
-.sound-toggle:active {
-    transform: scale(0.95);
-}
 /* Update responsive breakpoints */
 @media (max-width: 768px) {
     :root {

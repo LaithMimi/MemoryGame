@@ -35,8 +35,7 @@ class MemoryGame {
         // Sound state
         this.isSoundEnabled = true;
         
-        // Initialize sound toggle button
-        this.initSoundToggle();
+       
         //make a new game button work
         this.newGameButton.addEventListener('click', () => this.initGame());
         
@@ -101,22 +100,6 @@ class MemoryGame {
     resetGame() {
         this.initGame();
         this.closeSettingsModal();
-    }
-
-    initSoundToggle() {
-        const soundToggle = document.createElement('button');
-        soundToggle.id = 'soundToggle';
-        soundToggle.className = 'sound-toggle';
-        soundToggle.innerHTML = '🔊';
-        soundToggle.title = 'Toggle Sound';
-        
-        soundToggle.addEventListener('click', () => {
-            this.isSoundEnabled = !this.isSoundEnabled;
-            soundToggle.innerHTML = this.isSoundEnabled ? '🔊' : '🔈';
-        });
-        
-        // Add to game header
-        document.querySelector('.game-header').appendChild(soundToggle);
     }
 
     playSound(soundName) {
