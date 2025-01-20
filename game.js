@@ -17,9 +17,47 @@ class MemoryGame {
         this.pairsCounter = document.getElementById('pairsMatched');
         this.newGameButton = document.getElementById('newGame');
         
+        // Initialize sound effects
+         this.sounds = {
+            flip: new Audio('sounds/flip.wav'),
+            match: new Audio('sounds/match.wav'),
+            victory: new Audio('sounds/victory.wav'),
+            wrong: new Audio('sounds/wrong.wav')
+        };
+        
+        // Sound state
+        this.isSoundEnabled = true;
+        
+        // Initialize sound toggle button
+        this.initSoundToggle();
         //make a new game button work
         this.newGameButton.addEventListener('click', () => this.initGame());
 
+    }
+
+    initSoundToggle() {
+        const soundToggle = document.createElement('button');
+        soundToggle.id = 'soundToggle';
+        soundToggle.className = 'sound-toggle';
+        soundToggle.innerHTML = '🔊';
+        soundToggle.title = 'Toggle Sound';
+        
+        soundToggle.addEventListener('click', () => {
+            this.isSoundEnabled = !this.isSoundEnabled;
+            soundToggle.innerHTML = this.isSoundEnabled ? '🔊' : '🔈';
+        });
+        
+        // Add to game header
+        document.querySelector('.game-header').appendChild(soundToggle);
+    }
+
+    playSound(soundName) {
+        if (this.isSoundEnabled && this.sounds[soundName]) {
+            // Reset sound to start and play
+            const sound = this.sounds[soundName];
+            sound.currentTime = 0;
+            sound.play().catch(error => console.log('Sound play failed:', error));
+        }
     }
 
     initGame() {
@@ -118,20 +156,27 @@ class MemoryGame {
 
     revealTile(tile) {
         tile.classList.add('revealed');
-        //Adding the revealed class will apply the CSS styles defined for this class,
-        //typically making the tile's image visible.
+        this.playSound('flip');
+
+        // Add a slight delay to ensure smooth animation
+        setTimeout(() => {
+            tile.querySelector('img').style.display = 'block';
+        }, 150);
     }
 
     hideTile(tile) {
         tile.classList.remove('revealed');
     }
 
-    checkMatch() {
+  checkMatch() {
         const value1 = this.firstTile.dataset.value;
         const value2 = this.secondTile.dataset.value;
 
         if (value1 === value2) {
             // Matched!
+            this.playSound('match');
+            this.firstTile.classList.add('matched');
+            this.secondTile.classList.add('matched');
             this.pairsMatched++;
             this.updateCounters();
             this.resetTiles();
@@ -141,13 +186,14 @@ class MemoryGame {
             }
         } else {
             // No match
-            // this.canFlip = false;
-            // setTimeout(() => {
-            //     this.hideTile(this.firstTile);
-            //     this.hideTile(this.secondTile);
-            //     this.resetTiles();
-            //     this.canFlip = true;
-            // }, 1000);
+            this.playSound('wrong');
+            this.canFlip = false;
+            setTimeout(() => {
+                this.hideTile(this.firstTile);
+                this.hideTile(this.secondTile);
+                this.resetTiles();
+                this.canFlip = true;
+            }, 1000);
         }
     }
 
@@ -162,7 +208,12 @@ class MemoryGame {
     }
 
     gameComplete() {
-        alert(`Congratulations! You completed the game in ${this.turns} turns!`);
+        this.gameBoard.classList.add('game-complete');
+        this.playSound('victory');
+        setTimeout(() => {
+            alert(`Congratulations! You completed the game in ${this.turns} turns!`);
+            this.gameBoard.classList.remove('game-complete');
+        }, 1000);
     }
 }
 
