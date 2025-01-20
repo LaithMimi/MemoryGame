@@ -1,9 +1,16 @@
 class MemoryGame {
     constructor() {
         //set number of rows and columns for game board
-        this.ROWS = 6;
-        this.COLS = 5;
-
+        this.difficultyLevels = {
+            easy: { rows: 4, cols: 3 },
+            medium: { rows: 5, cols: 4 },
+            hard: { rows: 6, cols: 5 }
+        };
+        
+        // Initialize with easy difficulty
+        const defaultDifficulty = 'easy';
+        this.ROWS = this.difficultyLevels[defaultDifficulty].rows;
+        this.COLS = this.difficultyLevels[defaultDifficulty].cols;
 
         this.turns = 0;
         this.pairsMatched = 0;
@@ -32,7 +39,68 @@ class MemoryGame {
         this.initSoundToggle();
         //make a new game button work
         this.newGameButton.addEventListener('click', () => this.initGame());
+        
+        // Add settings button to header
+        this.initializeSettings();
+    }
+    updateGridLayout() {
+        // Dynamically update the CSS grid based on current difficulty
+        this.gameBoard.style.gridTemplateColumns = `repeat(${this.COLS}, 1fr)`;
+        this.gameBoard.style.gridTemplateRows = `repeat(${this.ROWS}, 1fr)`;
+    }
+    initializeSettings() {
+        // Create settings button
+        const settingsBtn = document.createElement('button');
+        settingsBtn.id = 'settingsButton';
+        settingsBtn.innerHTML = '⚙️';
+        settingsBtn.title = 'Settings';
+        document.querySelector('.game-header').appendChild(settingsBtn);
 
+        // Get modal elements
+        this.settingsModal = document.getElementById('settingsModal');
+        this.closeSettings = document.getElementById('closeSettings');
+        this.difficultySelect = document.getElementById('difficultyLevel');
+        this.soundToggleCheckbox = document.getElementById('soundToggle');
+        this.resetGameBtn = document.getElementById('resetGame');
+
+        // Event listeners
+        settingsBtn.addEventListener('click', () => this.openSettings());
+        this.closeSettings.addEventListener('click', () => this.closeSettingsModal());
+        this.difficultySelect.addEventListener('change', () => this.changeDifficulty());
+        this.soundToggleCheckbox.addEventListener('change', () => this.toggleSound());
+        this.resetGameBtn.addEventListener('click', () => this.resetGame());
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === this.settingsModal) {
+                this.closeSettingsModal();
+            }
+        });
+    }
+    openSettings() {
+        this.settingsModal.classList.add('active');
+        // Update settings to match current state
+        this.soundToggleCheckbox.checked = this.isSoundEnabled;
+    }
+
+    closeSettingsModal() {
+        this.settingsModal.classList.remove('active');
+    }
+
+    changeDifficulty() {
+        const difficulty = this.difficultySelect.value;
+        const { rows, cols } = this.difficultyLevels[difficulty];
+        this.ROWS = rows;
+        this.COLS = cols;
+        this.initGame();
+        this.closeSettingsModal();
+    }
+    toggleSound() {
+        this.isSoundEnabled = this.soundToggleCheckbox.checked;
+    }
+    resetGame() {
+        this.initGame();
+        this.closeSettingsModal();
     }
 
     initSoundToggle() {
@@ -67,6 +135,9 @@ class MemoryGame {
         this.updateCounters();
         this.gameBoard.innerHTML = '';
         
+        // Update grid layout
+        this.updateGridLayout();
+
         //create and mix tiles
         const tiles = this.createTilePairs();
         const shuffledTiles = this.shuffleTiles(tiles);

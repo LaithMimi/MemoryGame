@@ -24,6 +24,32 @@
         <!-- the code will be generated in js file -->
     </div>
 <!-- for settings -->
+<div class="settings-modal" id="settingsModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Game Settings</h2>
+            <button class="close-button" id="closeSettings">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="setting-group">
+                <label>Difficulty Level:</label>
+                <select id="difficultyLevel">
+                    <option value="easy">Easy (4x3)</option>
+                    <option value="medium" selected>Medium (5x4)</option>
+                    <option value="hard">Hard (6x5)</option>
+                </select>
+            </div>
+            <div class="setting-group">
+                <label>Sound Effects:</label>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="soundToggle" checked>
+                    <label for="soundToggle"></label>
+                </div>
+            </div>
+            <button id="resetGame" class="reset-button">Reset Game</button>
+        </div>
+    </div>
+</div>
     <script src="game.js"></script>
 </body>
 </html>

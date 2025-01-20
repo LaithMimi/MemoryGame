@@ -33,16 +33,14 @@ body {
     animation: fadeIn 0.8s ease-in;
 }
 
-
-
 .game-header {
     display: flex;
-    justify-content: flex-end; 
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: space-between;
     align-items: center;
-    max-width: 500px; /* To keep the header visually aligned with the game board */
     margin-bottom: 20px;
-    font-family: Arial, sans-serif;
-    color: #0d4d4d; /* Dark teal for text */
+    padding: 10px;
     
 }
 .game-stats {
@@ -65,12 +63,13 @@ body {
     margin: 0 auto; /* Centering the grid */
     border-radius: 5px; /* Rounded edges for modern design */
     justify-content: center;
-
 }
 
 .tile {
-    aspect-ratio: 1; /* Square tiles */
-    width: var(--card-size);/* Ensure the tile has a defined size */
+    aspect-ratio: 1;
+    width: 100%;
+    max-width: var(--card-size);
+    margin: 0 auto;
     background-image: url("images/card_background.png"); /* Original background image retained */
     background-size: cover;
     background-position: center;
@@ -110,25 +109,25 @@ body {
     animation: matchedPair 0.6s ease forwards;
 }
 
-
-#newGame {
-    padding: 10px 20px;
-    margin: 0 auto; /* Center the container horizontally */
-    font-size: 16px;
-    background-color: #000000; /* Bright blue for the button */
-    color: #ffffff; /* White text */
+button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: clamp(8px, 2vw, 12px) clamp(15px, 3vw, 25px);
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Button shadow */
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
-#newGame:hover {
-    background-color: #7c0505; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
 }
 
+button:active {
+    transform: translateY(0);
+}
 /* Add these to your existing CSS */
 .sound-toggle {
     padding: 8px 12px;
@@ -149,6 +148,18 @@ body {
 .sound-toggle:active {
     transform: scale(0.95);
 }
+/* Update responsive breakpoints */
+@media (max-width: 768px) {
+    :root {
+        --card-size: min(calc(100vw / 4 - 20px), 90px);
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --card-size: min(calc(100vw / 4 - 15px), 70px);
+    }
+}
 /* Add fade-in animation for game start */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-20px); }
@@ -158,4 +169,147 @@ body {
     0% { transform: scale(1); box-shadow: 0 0 0 rgba(76, 175, 80, 0); }
     50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(76, 175, 80, 0.5); }
     100% { transform: scale(1); box-shadow: 0 0 0 rgba(76, 175, 80, 0); }
+}
+
+/* Settings Modal Styles */
+.settings-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.settings-modal.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    padding: 0 5px;
+}
+
+.setting-group {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.setting-group label {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+/* Styled Select */
+select {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+    background: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    position: relative;
+    width: 50px;
+    height: 24px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-switch label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.toggle-switch label:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.toggle-switch input:checked + label {
+    background-color: var(--success-color);
+}
+
+.toggle-switch input:checked + label:before {
+    background-color: var(--secondary-color);
+    transform: translateX(26px);
+
+}
+
+.reset-button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.reset-button:hover {
+    opacity: 0.9;
+}
+
+/* Add Settings Button to Header */
+#settingsButton {
+    background-color: var(--primary-color);
+    margin-left: 10px;
 }
